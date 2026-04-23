@@ -1,3 +1,101 @@
-span {
-    background: DodgerBlue; 
-    color: #ffffff;       }
+/* Thiết lập chung dựa trên Step 3 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { 
+    background: #CCCCCC; 
+    font-family: Verdana, Geneva, sans-serif; 
+}
+
+#wrap { 
+    width: 900px; 
+    margin: 10px auto; 
+    background: #FFF; 
+}
+
+/* Step 2: Header & Menu */
+#header {
+    background: url('header.jpg') no-repeat;
+    height: 181px;
+    position: relative;
+}
+
+#logo { padding: 25px 0 0 50px; }
+
+#menu_top {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: url('menu_bt_bg.gif') repeat-x;
+    height: 40px;
+}
+
+.level1 { list-style: none; padding-top: 10px; margin-left: 20px; }
+.level1 > li { float: left; margin-right: 30px; position: relative; }
+.level1 li a { color: #FFF; text-decoration: none; font-weight: bold; }
+
+/* Menu đa cấp */
+.level2 { 
+    display: none; 
+    position: absolute; 
+    background: #8B1F22; 
+    top: 30px; 
+    left: 0; 
+    width: 150px; 
+    z-index: 100;
+}
+.level1 li:hover .level2 { display: block; }
+.level2 li { padding: 8px; border-bottom: 1px solid #FFF; list-style: none; }
+
+/* Step 4: Welcome */
+#welcome { 
+    border: 2px dotted #9C0; 
+    margin: 10px; 
+    padding: 6px; 
+    font-weight: bold; 
+}
+
+/* Step 5 & 6: Chia cột */
+#center_content { padding: 10px; overflow: hidden; }
+#left { width: 550px; float: left; }
+#right { width: 310px; float: right; padding-left: 15px; border-left: 1px dashed #DDD; }
+
+/* Khung bo góc About Us */
+.box_edge { display: block; width: 100%; }
+.box_body { background: url('box_center.gif') repeat-y; background-size: 100%; padding: 15px; }
+
+.title { color: #B81F22; font-weight: bold; font-size: 16px; margin-bottom: 10px; }
+.title img { vertical-align: middle; margin-right: 8px; }
+
+/* Step 7: Sản phẩm và đường kẻ border.gif */
+.product {
+    padding: 15px 0;
+    overflow: hidden;
+    background: url('border.gif') repeat-x bottom;
+}
+.product .img { float: left; margin-right: 15px; }
+.product .description {
+    float: left;
+    width: 380px;
+    border: 1px solid #EEE;
+    padding: 10px;
+    border-radius: 5px;
+}
+.product .name { color: #B81F22; font-weight: bold; }
+
+/* Step 6: Danh mục bên phải */
+.menu_right { list-style: none; }
+.menu_right li {
+    padding: 8px 0 8px 30px;
+    background: url('left_menu_bullet.gif') no-repeat left center;
+    border-bottom: 1px dashed #EEE;
+}
+
+/* Step 8: Footer */
+#footer {
+    background: url('footer_bg.gif') no-repeat bottom;
+    height: 110px;
+    clear: both;
+    padding: 40px 20px 0 20px;
+}
+.f_left { float: left; color: #666; font-size: 11px; }
+.f_right { float: right; }
