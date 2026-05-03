@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>Bài tập JavaScript - Lab 11 & 12</title>
+    <style>
+        /* Giao diện màu hồng cho Hà */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #fff0f5; /* Hồng cực nhạt */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4);
+            width: 450px;
+            margin-bottom: 25px;
+            border: 2px solid #ffb6c1;
+        }
+        h2, h3 {
+            color: #d81b60;
+            text-align: center;
+            margin-top: 0;
+            border-bottom: 2px solid #ffc0cb;
+            padding-bottom: 10px;
+        }
+        table { width: 100%; border-collapse: collapse; }
+        td { padding: 8px; color: #555; }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ffc0cb;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        input[type="button"]:hover { background-color: #d81b60; }
+        .result-box { background-color: #fff9fb; color: #d81b60; font-weight: bold; text-align: center; }
+    </style>
+
+    <script language="javascript">
+        // --- BÀI 3: TÍNH NGÀY TRONG THÁNG (Theo code mẫu trong ảnh) ---
+        function isLeapYear(n) {
+            return (n % 4 == 0 && n % 100 != 0) || (n % 400 == 0);
+        }
+
+        function update() {
+            var year = document.f.year;
+            var month = document.f.month;
+            var date = document.f.date;
+
+            if (year.value == "" || isNaN(year.value)) {
+                date.value = "Year must a number";
+                year.focus();
+            } else {
+                switch (month.value) {
+                    case "1": case "3": case "5": case "7": case "8": case "10": case "12":
+                        date.value = 31;
+                        break;
+                    case "4": case "6": case "9": case "11":
+                        date.value = 30;
+                        break;
+                    case "2":
+                        date.value = isLeapYear(parseInt(year.value)) ? 29 : 28;
+                        break;
+                }
+            }
+        }
+
+        // --- BÀI 2.A & 2.B: EXTRA EXERCISES ---
+        function calcRect() {
+            var d = parseFloat(document.fExtra.dai.value);
+            var r = parseFloat(document.fExtra.rong.value);
+            if (!isNaN(d) && !isNaN(r)) {
+                document.fExtra.resHCN.value = "Chu vi: " + ((d + r) * 2) + " | DT: " + (d * r);
+            }
+        }
+
+        function calcCircle() {
+            var r = parseFloat(document.fExtra.bk.value);
+            if (!isNaN(r)) {
+                var cv = (2 * 3.14 * r).toFixed(2);
+                var dt = (3.14 * r * r).toFixed(2);
+                document.fExtra.resTron.value = "Chu vi: " + cv + " | DT: " + dt;
+            }
+        }
+
+        // --- BÀI 5: MULTIPLICATION TABLE (BẢNG CỬU CHƯƠNG) ---
+        function generateTable() {
+            var n = parseInt(document.fTable.num.value);
+            var area = document.getElementById("tableArea");
+            var res = "<table border='1' style='border-color:#ffc0cb; text-align:center;'>";
+            
+            if (isNaN(n)) { alert("Hãy nhập số!"); return; }
+
+            for (var i = 1; i <= 10; i++) {
+                res += "<tr><td>" + n + " x " + i + "</td><td>" + (n * i) + "</td></tr>";
+            }
+            area.innerHTML = res + "</table>";
+        }
+    </script>
+</head>
+<body onload="update()">
+
+    <!-- BÀI 3: DATES IN MONTH -->
+    <div class="card">
+        <h3>3. Dates In Month</h3>
+        <form name="f">
+            <table>
+                <tr><td align="right">Year:</td><td><input type="text" name="year" value="2014" oninput="update()"></td></tr>
+                <tr><td align="right">Month:</td><td>
+                    <select name="month" onchange="update()">
+                        <option value="1">01</option><option value="2">02</option>
+                        <option value="3">03</option><option value="4">04</option>
+                    </select>
+                </td></tr>
+                <tr><td align="right">Date:</td><td><input type="text" name="date" class="result-box" readonly></td></tr>
+            </table>
+        </form>
+    </div>
+
+    <!-- BÀI 2: EXTRA EXERCISES -->
+    <div class="card">
+        <h3>2. Extra Exercises</h3>
+        <form name="fExtra">
+            <p><strong>a. Rectangle:</strong></p>
+            <input type="text" name="dai" placeholder="Chiều dài" style="width:48%" oninput="calcRect()">
+            <input type="text" name="rong" placeholder="Chiều rộng" style="width:48%" oninput="calcRect()">
+            <input type="text" name="resHCN" class="result-box" readonly placeholder="Kết quả HCN" style="margin-top:10px">
+
+            <p><strong>b. Circle (π = 3.14):</strong></p>
+            <input type="text" name="bk" placeholder="Nhập bán kính" oninput="calcCircle()">
+            <input type="text" name="resTron" class="result-box" readonly placeholder="Kết quả Hình Tròn" style="margin-top:10px">
+        </form>
+    </div>
+
+    <!-- BÀI 5: MULTIPLICATION TABLE -->
+    <div class="card">
+        <h3>5. Multiplication Table</h3>
+        <form name="fTable">
+            <input type="text" name="num" placeholder="Nhập số bảng cửu chương (VD: 5)">
+            <input type="button" value="TẠO BẢNG" onclick="generateTable()">
+        </form>
+        <div id="tableArea" style="margin-top:15px; display:flex; justify-content:center;"></div>
+    </div>
+
+</body>
+</html>
