@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>Hà's JS Lab - Pink Theme</title>
+    <style>
+        /* CSS giúp trang web lung linh hơn */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff0f5; /* Màu nền hồng cực nhạt */
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.5);
+            width: 500px;
+            border: 2px solid #ffb6c1;
+        }
+
+        h2, h3 {
+            color: #d81b60;
+            text-align: center;
+            margin-top: 0;
+            text-transform: uppercase;
+            border-bottom: 2px solid #ffc0cb;
+            padding-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 10px;
+            color: #555;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ffc0cb;
+            border-radius: 8px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: #d81b60;
+            box-shadow: 0 0 5px #ffc0cb;
+        }
+
+        input[type="button"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        input[type="button"]:hover {
+            background-color: #d81b60;
+            transform: scale(1.02);
+        }
+
+        .result-field {
+            background-color: #fff9fb;
+            color: #d81b60;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+
+    <script language="javascript">
+        // --- LOGIC BÀI 3: DATES IN MONTH ---
+        function isLeapYear(n) {
+            return (n % 4 == 0 && n % 100 != 0) || (n % 400 == 0);
+        }
+
+        function updateDates() {
+            var y = parseInt(document.fDates.year.value);
+            var m = document.fDates.month.value;
+            var res = document.fDates.date;
+
+            if (isNaN(y)) {
+                res.value = "Nhập số năm!";
+            } else {
+                switch (m) {
+                    case "1": case "3": case "5": case "7": case "8": case "10": case "12":
+                        res.value = 31; break;
+                    case "4": case "6": case "9": case "11":
+                        res.value = 30; break;
+                    case "2":
+                        res.value = isLeapYear(y) ? 29 : 28; break;
+                }
+            }
+        }
+
+        // --- LOGIC BÀI 5: MULTIPLICATION TABLE ---
+        function generateMultiTable() {
+            var n = parseInt(document.fMulti.num.value);
+            var area = document.getElementById("multiArea");
+            var html = "<table border='1' style='border-color:#ffc0cb; margin-top:15px;'>";
+            if(isNaN(n)) { alert("Nhập số nha Hà!"); return; }
+            
+            for(var i=1; i<=10; i++) {
+                html += "<tr><td style='background:#fff0f5'>" + n + " x " + i + "</td><td style='color:#d81b60; font-weight:bold;'>" + (n*i) + "</td></tr>";
+            }
+            area.innerHTML = html + "</table>";
+        }
+
+        // --- LOGIC BÀI 2A & 2B: EXTRA ---
+        function calcRect() {
+            var d = parseFloat(document.fExtra.dai.value);
+            var r = parseFloat(document.fExtra.rong.value);
+            if(!isNaN(d) && !isNaN(r)) {
+                document.fExtra.resHCN.value = "CV: " + ((d+r)*2) + " - DT: " + (d*r);
+            }
+        }
+
+        function calcCircle() {
+            var r = parseFloat(document.fExtra.bk.value);
+            if(!isNaN(r)) {
+                document.fExtra.resTron.value = "CV: " + (2*3.14*r).toFixed(2) + " - DT: " + (3.14*r*r).toFixed(2);
+            }
+        }
+    </script>
+</head>
+
+<body onload="updateDates()">
+
+    <!-- BÀI 3: DATES IN MONTH -->
+    <div class="container">
+        <h3>3. Dates In Month</h3>
+        <form name="fDates">
+            <table>
+                <tr><td>Year:</td><td><input type="text" name="year" value="2012" oninput="updateDates()"></td></tr>
+                <tr><td>Month:</td><td>
+                    <select name="month" onchange="updateDates()">
+                        <option value="1">Tháng 01</option><option value="2">Tháng 02</option>
+                        <option value="6" selected>Tháng 06</option><option value="12">Tháng 12</option>
+                    </select>
+                </td></tr>
+                <tr><td>Days:</td><td><input type="text" name="date" class="result-field" readonly></td></tr>
+            </table>
+        </form>
+    </div>
+
+    <!-- BÀI 5: MULTIPLICATION TABLE -->
+    <div class="container">
+        <h3>5. Multiplication Table</h3>
+        <form name="fMulti">
+            <table>
+                <tr>
+                    <td>Nhập số:</td>
+                    <td><input type="text" name="num" value="5"></td>
+                </tr>
+            </table>
+            <input type="button" value="TẠO BẢNG CỬU CHƯƠNG" onclick="generateMultiTable()">
+        </form>
+        <div id="multiArea" style="display: flex; justify-content: center;"></div>
+    </div>
+
+    <!-- BÀI 2A & 2B: EXTRA EXERCISES -->
+    <div class="container">
+        <h3>2. Extra Exercises</h3>
+        <form name="fExtra">
+            <p><strong>a. Rectangle:</strong></p>
+            <input type="text" name="dai" placeholder="Dài" style="width:48%" oninput="calcRect()">
+            <input type="text" name="rong" placeholder="Rộng" style="width:48%" oninput="calcRect()">
+            <input type="text" name="resHCN" class="result-field" readonly placeholder="Kết quả HCN" style="margin-top:10px">
+
+            <p><strong>b. Circle (π = 3.14):</strong></p>
+            <input type="text" name="bk" placeholder="Nhập bán kính" oninput="calcCircle()">
+            <input type="text" name="resTron" class="result-field" readonly placeholder="Kết quả Hình Tròn" style="margin-top:10px">
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Extra Exercises - Lab 11 & 12</title>
+    <script language="javascript">
+        // Bài 2.a: Tính Hình Chữ Nhật
+        function tinhHCN() {
+            var d = document.formHCN.dai.value;
+            var r = document.formHCN.rong.value;
+
+            if (isNaN(d) || isNaN(r) || d == "" || r == "") {
+                alert("Vui lòng nhập số hợp lệ cho Chiều dài và Chiều rộng!");
+            } else {
+                var chuVi = (parseFloat(d) + parseFloat(r)) * 2;
+                var dienTich = parseFloat(d) * parseFloat(r);
+                
+                document.formHCN.chuvi.value = chuVi;
+                document.formHCN.dientich.value = dienTich;
+            }
+        }
+
+        // Bài 2.b: Tính Hình Tròn (PI = 3.14)
+        function tinhHinhTron() {
+            var r = document.formTron.bankinh.value;
+            var PI = 3.14;
+
+            if (isNaN(r) || r == "") {
+                alert("Vui lòng nhập bán kính là một con số!");
+            } else {
+                var bk = parseFloat(r);
+                var chuVi = 2 * PI * bk;
+                var dienTich = PI * bk * bk;
+
+                document.formTron.chuvi.value = chuVi.toFixed(2);
+                document.formTron.dientich.value = dienTich.toFixed(2);
+            }
+        }
+    </script>
+</head>
+<body style="font-family: Arial; padding: 20px; background-color: #f9f9f9;">
+
+    <!-- Form cho Hình Chữ Nhật (Bài 2.a) -->
+    <div style="border: 1px solid #ccc; padding: 20px; margin-bottom: 20px; background: white; border-radius: 8px; width: 400px;">
+        <h3>2.a Calculate Rectangle</h3>
+        <form name="formHCN">
+            Length: <input type="text" name="dai" placeholder="Chiều dài"> <br><br>
+            Width: <input type="text" name="rong" placeholder="Chiều rộng"> <br><br>
+            <input type="button" value="Calculate" onclick="tinhHCN()"> <br><br>
+            Perimeter: <input type="text" name="chuvi" readonly style="background: #eee;"> <br><br>
+            Area: <input type="text" name="dientich" readonly style="background: #eee;">
+        </form>
+    </div>
+
+    <!-- Form cho Hình Tròn (Bài 2.b) -->
+    <div style="border: 1px solid #ccc; padding: 20px; background: white; border-radius: 8px; width: 400px;">
+        <h3>2.b Calculate Circle (π = 3.14)</h3>
+        <form name="formTron">
+            Radius: <input type="text" name="bankinh" placeholder="Bán kính"> <br><br>
+            <input type="button" value="Calculate" onclick="tinhHinhTron()"> <br><br>
+            Perimeter: <input type="text" name="chuvi" readonly style="background: #eee;"> <br><br>
+            Area: <input type="text" name="dientich" readonly style="background: #eee;">
+        </form>
+    </div>
+
+</body>
+</html>

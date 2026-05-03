@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Dates in month</title>
+    <script language="javascript">
+        // 1. Hàm kiểm tra năm nhuận
+        function isLeapYear(n) {
+            return (n % 4 == 0 && n % 100 != 0) || (n % 400 == 0);
+        }
+
+        // 2. Hàm cập nhật số ngày
+        function update() {
+            // Lấy giá trị trực tiếp từ form 'f'
+            var yearValue = document.f.year.value; 
+            var monthValue = document.f.month.value;
+            var dateField = document.f.date;
+
+            // Chuyển năm sang kiểu số nguyên
+            var y = parseInt(yearValue);
+
+            // Kiểm tra: Nếu không phải là số (NaN) hoặc để trống
+            if (isNaN(y) || yearValue.trim() == "") {
+                dateField.value = "Year must be a number";
+                // Lưu ý: Không nên dùng focus() liên tục ở đây vì sẽ gây khó chịu khi người dùng gõ
+            } else {
+                // Sử dụng switch-case dựa trên giá trị của monthValue
+                switch (monthValue) {
+                    // Các tháng có 31 ngày
+                    case "1": case "3": case "5": case "7": case "8": case "10": case "12":
+                        dateField.value = 31;
+                        break;
+                    // Các tháng có 30 ngày
+                    case "4": case "6": case "9": case "11":
+                        dateField.value = 30;
+                        break;
+                    // Tháng 2
+                    case "2":
+                        dateField.value = isLeapYear(y) ? 29 : 28;
+                        break;
+                }
+            }
+        }
+    </script>
+</head>
+<body onload="update()" style="padding-top: 50px; background-color: #f4f4f4;">
+
+    <form name="f">
+        <table border="1" align="center" cellpadding="10" style="background: white; border-collapse: collapse; border: 1px solid #ccc;">
+            <tr>
+                <td colspan="2" align="center" style="background-color: #eee;">
+                    <h2 style="margin: 0;">DATES IN MONTH</h2>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Year: </td>
+                <td>
+                    <!-- Dùng oninput để cập nhật ngay lập tức khi gõ, hoặc onblur như cũ -->
+                    <input type="text" name="year" value="2012" oninput="update()" onblur="update()">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Month: </td>
+                <td>
+                    <!-- onchange: tính lại ngay khi vừa đổi tháng -->
+                    <select name="month" onchange="update()">
+                        <option value="1">01</option>
+                        <option value="2">02</option>
+                        <option value="3">03</option>
+                        <option value="4">04</option>
+                        <option value="5">05</option>
+                        <option value="6">06</option>
+                        <option value="7">07</option>
+                        <option value="8">08</option>
+                        <option value="9">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Date: </td>
+                <td>
+                    <input type="text" name="date" readonly="readonly" style="background-color: #eee; font-weight: bold; color: blue;">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

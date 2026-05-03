@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Multiplication Table</title>
+    <script language="javascript">
+        function generateTable() {
+            // Lấy số từ ô nhập liệu
+            var n = parseInt(document.formTable.number.value);
+            var resultHTML = "";
+
+            if (isNaN(n)) {
+                alert("Vui lòng nhập một con số!");
+                return;
+            }
+
+            // Tiêu đề của bảng cửu chương
+            resultHTML += "<table border='1' width='200' style='border-collapse: collapse; text-align: center;'>";
+            resultHTML += "<tr><th colspan='2'>Bảng cửu chương " + n + "</th></tr>";
+
+            // Vòng lặp for để tạo ra 10 dòng kết quả
+            for (var i = 1; i <= 10; i++) {
+                resultHTML += "<tr>";
+                resultHTML += "<td>" + n + " x " + i + "</td>";
+                resultHTML += "<td>" + (n * i) + "</td>";
+                resultHTML += "</tr>";
+            }
+
+            resultHTML += "</table>";
+
+            // Hiển thị bảng vào vùng div có id là 'displayArea'
+            document.getElementById("displayArea").innerHTML = resultHTML;
+        }
+    </script>
+</head>
+<body style="font-family: Arial; padding: 20px;">
+
+    <h2>TẠO BẢNG CỬU CHƯƠNG</h2>
+    <form name="formTable">
+        Nhập số: <input type="text" name="number" value="5">
+        <input type="button" value="Tạo bảng" onclick="generateTable()">
+    </form>
+
+    <br>
+    <!-- Nơi bảng cửu chương sẽ hiện ra -->
+    <div id="displayArea"></div>
+
+</body>
+</html>
