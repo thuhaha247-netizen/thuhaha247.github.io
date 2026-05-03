@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>Hà's Advanced JS Lab</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial; background-color: #fff0f5; padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4); width: 500px; border: 2px solid #ffb6c1; }
+        h2, h3 { color: #d81b60; text-align: center; margin-top: 0; border-bottom: 2px solid #ffc0cb; padding-bottom: 10px; }
+        table { width: 100%; }
+        td { padding: 8px; color: #555; }
+        input[type="text"], select { width: 100%; padding: 8px; border: 1px solid #ffc0cb; border-radius: 5px; box-sizing: border-box; }
+        input[type="button"] { width: 100%; padding: 10px; background-color: #ff69b4; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        input[type="button"]:hover { background-color: #d81b60; }
+        iframe { border: 1px solid #ffc0cb; border-radius: 5px; background: #fff9fb; }
+        .result-box { background-color: #fff9fb; color: #d81b60; font-weight: bold; text-align: center; }
+    </style>
+
+    <script language="javascript">
+        // --- CÂU 5: MULTIPLICATION TABLE (DÙNG IFRAME) ---
+        function display() {
+            var a = document.fTable.a;
+            var txt = document.getElementById("view_area").contentWindow;
+            
+            // Xóa nội dung cũ
+            txt.document.body.innerHTML = "";
+            txt.document.body.style.fontFamily = "Arial";
+            txt.document.body.style.fontSize = "14px";
+            txt.document.body.style.color = "#555";
+
+            if (a.value == "" || isNaN(a.value)) {
+                txt.document.write("<font color='red'>You must enter a number</font>");
+            } else {
+                txt.document.write("<b>Multiplication table " + a.value + ":</b><br/>");
+                for (var i = 1; i <= 10; i++) {
+                    txt.document.write(a.value + " x " + i + " = " + (i * a.value) + "<br/>");
+                }
+            }
+            txt.document.close(); // Quan trọng để kết thúc luồng ghi
+        }
+
+        // --- CÂU 6: REGULAR EXPRESSION & EVAL() ---
+        function calculate() {
+            var n1 = document.fCalc.num1.value;
+            var n2 = document.fCalc.num2.value;
+            var op = document.fCalc.operator.value;
+            var resField = document.fCalc.result;
+
+            // Regular Expression kiểm tra chỉ cho phép nhập số
+            var numReg = /^-?\d*\.?\d+$/;
+
+            if (!numReg.test(n1) || !numReg.test(n2)) {
+                alert("Vui lòng nhập đúng định dạng số!");
+                return;
+            }
+
+            try {
+                // Sử dụng hàm eval() để tính toán biểu thức chuỗi
+                var expression = n1 + op + n2;
+                var result = eval(expression);
+                resField.value = result;
+            } catch (e) {
+                resField.value = "Error!";
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <!-- CÂU 5: MULTIPLICATION TABLE -->
+    <div class="card">
+        <h3>5. Multiplication Table (Iframe)</h3>
+        <form name="fTable">
+            <table border="0" align="center">
+                <tr>
+                    <td align="right">Which multiplication table?</td>
+                    <td><input name="a" size="5" onchange="display()"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <iframe id="view_area" width="230" height="250"></iframe>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <!-- CÂU 6: REGEX & EVAL FUNCTION -->
+    <div class="card">
+        <h3>6. Calculator (Regex & Eval)</h3>
+        <form name="fCalc">
+            <table>
+                <tr><td>Number 1:</td><td><input type="text" name="num1" placeholder="Nhập số"></td></tr>
+                <tr><td>Operator:</td><td>
+                    <select name="operator">
+                        <option value="+">+</option><option value="-">-</option>
+                        <option value="*">*</option><option value="/">/</option>
+                        <option value="%">%</option>
+                    </select>
+                </td></tr>
+                <tr><td>Number 2:</td><td><input type="text" name="num2" placeholder="Nhập số"></td></tr>
+                <tr><td colspan="2"><input type="button" value="CALCULATE" onclick="calculate()"></td></tr>
+                <tr><td>Result:</td><td><input type="text" name="result" class="result-box" readonly></td></tr>
+            </table>
+        </form>
+    </div>
+
+</body>
+</html>
